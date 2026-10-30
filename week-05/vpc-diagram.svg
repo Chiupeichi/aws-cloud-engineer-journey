@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071426"/>
+      <stop offset="1" stop-color="#102a43"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/>
+    </marker>
+    <style>
+      .title { font: 700 42px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #f8fafc; }
+      .subtitle { font: 400 21px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #b8c8d9; }
+      .section { font: 700 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #e2e8f0; }
+      .label { font: 700 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #f8fafc; }
+      .detail { font: 400 17px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #cbd5e1; }
+      .small { font: 600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #94a3b8; }
+      .flow { fill: none; stroke: #f59e0b; stroke-width: 5; marker-end: url(#arrow); }
+      .internal { fill: none; stroke: #38bdf8; stroke-width: 4; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1600" height="980" fill="url(#bg)"/>
+  <text x="80" y="75" class="title">Week 5 - AWS VPC and Bastion Architecture</text>
+  <text x="80" y="112" class="subtitle">training-vpc · 10.0.0.0/16 · us-east-2</text>
+
+  <rect x="55" y="155" width="1490" height="765" rx="30" fill="#0b1f33" stroke="#48739c" stroke-width="3"/>
+  <text x="85" y="200" class="section">training-vpc (10.0.0.0/16)</text>
+
+  <rect x="90" y="245" width="690" height="555" rx="24" fill="#102c3f" stroke="#38bdf8" stroke-width="3"/>
+  <text x="120" y="285" class="section">Availability Zone us-east-2a</text>
+
+  <rect x="820" y="245" width="690" height="555" rx="24" fill="#102c3f" stroke="#38bdf8" stroke-width="3"/>
+  <text x="850" y="285" class="section">Availability Zone us-east-2b</text>
+
+  <rect x="120" y="320" width="630" height="205" rx="20" fill="#123b50" stroke="#22c55e" stroke-width="3" filter="url(#shadow)"/>
+  <text x="150" y="358" class="label">Public Subnet 1</text>
+  <text x="150" y="388" class="detail">Route: 0.0.0.0/0 → Internet Gateway</text>
+  <rect x="155" y="418" width="255" height="78" rx="14" fill="#1d4f67"/>
+  <text x="178" y="449" class="label">Bastion EC2</text>
+  <text x="178" y="478" class="detail">10.0.12.86 · SSH from My IP</text>
+  <rect x="455" y="418" width="255" height="78" rx="14" fill="#1d4f67"/>
+  <text x="478" y="449" class="label">NAT Gateway</text>
+  <text x="478" y="478" class="detail">EIP 3.136.40.39</text>
+
+  <rect x="120" y="565" width="630" height="185" rx="20" fill="#182b46" stroke="#8b5cf6" stroke-width="3" filter="url(#shadow)"/>
+  <text x="150" y="603" class="label">Private Subnet 1</text>
+  <text x="150" y="633" class="detail">Route: 0.0.0.0/0 → NAT Gateway</text>
+  <rect x="285" y="655" width="300" height="70" rx="14" fill="#273b61"/>
+  <text x="310" y="683" class="label">Private EC2</text>
+  <text x="310" y="711" class="detail">10.0.133.15 · No public IP</text>
+
+  <rect x="850" y="320" width="630" height="205" rx="20" fill="#123b50" stroke="#22c55e" stroke-width="3" filter="url(#shadow)"/>
+  <text x="880" y="358" class="label">Public Subnet 2</text>
+  <text x="880" y="388" class="detail">Route: 0.0.0.0/0 → Internet Gateway</text>
+  <text x="880" y="457" class="small">Available for public-facing workloads</text>
+
+  <rect x="850" y="565" width="630" height="185" rx="20" fill="#182b46" stroke="#8b5cf6" stroke-width="3" filter="url(#shadow)"/>
+  <text x="880" y="603" class="label">Private Subnet 2</text>
+  <text x="880" y="633" class="detail">Route: 0.0.0.0/0 → NAT Gateway in us-east-2a</text>
+  <text x="880" y="702" class="small">No direct inbound route from the internet</text>
+
+  <rect x="130" y="830" width="270" height="60" rx="16" fill="#20384d" stroke="#f59e0b" stroke-width="2"/>
+  <text x="165" y="868" class="label">User's Mac</text>
+  <rect x="665" y="830" width="270" height="60" rx="16" fill="#20384d" stroke="#f59e0b" stroke-width="2"/>
+  <text x="700" y="868" class="label">Internet Gateway</text>
+  <rect x="1200" y="830" width="270" height="60" rx="16" fill="#20384d" stroke="#f59e0b" stroke-width="2"/>
+  <text x="1255" y="868" class="label">Internet</text>
+
+  <path d="M400 860 C500 860 550 860 665 860" class="flow"/>
+  <path d="M800 830 C760 690 470 610 285 496" class="flow"/>
+  <path d="M282 496 C300 540 350 590 415 655" class="internal"/>
+  <path d="M585 496 C650 550 760 740 800 830" class="flow"/>
+  <path d="M935 860 C1040 860 1090 860 1200 860" class="flow"/>
+
+  <text x="430" y="845" class="small">SSH</text>
+  <text x="420" y="575" class="small">SSH via SG reference</text>
+  <text x="970" y="845" class="small">Outbound traffic</text>
+</svg>
