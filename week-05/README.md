@@ -90,14 +90,26 @@ Mac -> Internet Gateway -> public subnet -> bastion -> private subnet -> private
 
 ## 6. Verify private outbound internet access
 
-From the private instance, use the following commands to confirm that outbound traffic crosses the NAT Gateway:
+From the private instance, I ran the following commands to confirm that outbound traffic crossed the NAT Gateway:
 
 ```bash
 curl -s https://checkip.amazonaws.com
 sudo dnf makecache
 ```
 
-The first command should return the NAT Gateway Elastic IP `3.136.40.39`; the second should complete without a connection timeout.
+The public-IP check returned the NAT Gateway Elastic IP:
+
+```text
+3.136.40.39
+```
+
+The package metadata request reached both Amazon Linux 2023 repositories and finished with:
+
+```text
+Metadata cache created.
+```
+
+This verifies that the private instance has outbound internet access through its private route table and the NAT Gateway, without having a public IPv4 address of its own.
 
 ## Troubleshooting
 
@@ -116,4 +128,3 @@ After saving evidence and documentation:
 3. Release the NAT Gateway Elastic IP.
 4. Delete `training-vpc` and its remaining network resources.
 5. Confirm that no unused Elastic IP or NAT Gateway remains.
-
